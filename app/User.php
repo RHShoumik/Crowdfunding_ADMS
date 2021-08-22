@@ -87,7 +87,7 @@
 			// $single_user_data = array(oci_fetch_array($data));
 			// echo $single_user_data;
    			
-				//return oci_fetch_array($data, OCI_ASSOC);
+			return oci_fetch_array($data, OCI_ASSOC);
 
 		
 			
@@ -150,6 +150,63 @@
 					return "<p style='color:red;text-align:center; font-size:14px; font-weight:normal;'> Wrong email address !</p>";
 				}
 
+		}
+
+		public function allAdminCount()
+		{
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+			$data = oci_parse($connection, "BEGIN
+											:returnValue := totalAdmin();
+		 									END;");
+		  	oci_bind_by_name($data,":returnValue",$returnValue);
+			oci_execute($data);
+
+			return $returnValue;
+		}
+		public function allSponsorCount()
+		{
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+			$data = oci_parse($connection, "BEGIN
+											:returnValue := totalSponsor();
+		 									END;");
+		  	oci_bind_by_name($data,":returnValue",$returnValue);
+			oci_execute($data);
+
+			return $returnValue;
+		}
+		public function allOrganisationrCount()
+		{
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+			$data = oci_parse($connection, "BEGIN
+											:returnValue := totalOrg();
+		 									END;");
+		  	oci_bind_by_name($data,":returnValue",$returnValue);
+			oci_execute($data);
+
+			return $returnValue;
+		}
+		public function allUserCount()
+		{
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+			$data = oci_parse($connection, "BEGIN
+											:returnValue := totalUser();
+		 									END;");
+		  	oci_bind_by_name($data,":returnValue",$returnValue);
+			oci_execute($data);
+
+			return $returnValue;
 		}
 
 

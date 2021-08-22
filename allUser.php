@@ -38,7 +38,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="./login.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -47,7 +47,7 @@
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
-                        <div class="nav">
+                    <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
                             <a class="nav-link" href="./adminDashboard.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
@@ -66,14 +66,19 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-hands"></i></i></div>
                                 All Organization
                             </a>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="#">
+                            <div class="sb-sidenav-menu-heading">Events</div>
+                            <a class="nav-link" href="./allEvents.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                                All Events
                             </a>
-                            <a class="nav-link" href="#">
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="./allTransaction.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                All Transaction
+                            </a>
+                            <a class="nav-link" href="./profile.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                                Profile
                             </a>
                         </div>
                     </div>
@@ -86,7 +91,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Admin</h1>
+                        <h1 class="mt-4">Showing All Users</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>

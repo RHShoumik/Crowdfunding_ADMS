@@ -1,3 +1,9 @@
+<?php  include_once "App/autoload.php"; ?>
+<?php  
+  
+  $user = new User;
+
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -32,7 +38,7 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" href="./login.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -60,14 +66,19 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-hands"></i></i></div>
                                 All Organization
                             </a>
-                            <div class="sb-sidenav-menu-heading">Addons</div>
-                            <a class="nav-link" href="#">
+                            <div class="sb-sidenav-menu-heading">Events</div>
+                            <a class="nav-link" href="./allEvents.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                Charts
+                                All Events
                             </a>
-                            <a class="nav-link" href="#">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Tables
+                            <div class="sb-sidenav-menu-heading">Addons</div>
+                            <a class="nav-link" href="./allTransaction.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                All Transaction
+                            </a>
+                            <a class="nav-link" href="./profile.php">
+                                <div class="sb-nav-link-icon"><i class="fa fa-user-o"></i></div>
+                                Profile
                             </a>
                         </div>
                     </div>
@@ -87,7 +98,12 @@
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body">Primary Card</div>
+                                    <div class="card-body">Admin
+                                        <?php  
+                                            $admin=$user -> allAdminCount();
+                                            echo "<h2>Total Admins : " . $admin . "</h2><br/>";
+                                         ?>
+                                    </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -96,7 +112,12 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                    <div class="card-body">Warning Card</div>
+                                    <div class="card-body">Organisation
+                                            <?php  
+                                                $admin=$user -> allOrganisationrCount();
+                                                echo "<h2>Total Organisation: " . $admin . "</h2><br/>";
+                                            ?>
+                                        </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -105,7 +126,12 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body">Success Card</div>
+                                    <div class="card-body">Sponsor
+                                            <?php  
+                                                $admin=$user -> allSponsorCount();
+                                                echo "<h2>Total Sponsors : " . $admin . "</h2><br/>";
+                                            ?>
+                                        </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>
@@ -113,8 +139,13 @@
                                 </div>
                             </div>
                             <div class="col-xl-3 col-md-6">
-                                <div class="card bg-danger text-white mb-4">
-                                    <div class="card-body">Danger Card</div>
+                                <div class="card bg-info text-white mb-4">
+                                    <div class="card-body">User
+                                            <?php  
+                                                $admin=$user -> allUserCount();
+                                                echo "<h2>Total Users : " . $admin . "</h2><br/>";
+                                            ?>
+                                        </div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <a class="small text-white stretched-link" href="#">View Details</a>
                                         <div class="small text-white"><i class="fas fa-angle-right"></i></div>

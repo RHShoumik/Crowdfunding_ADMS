@@ -18,7 +18,7 @@
 		/**
 		* USer registration System 
 		*/
-		public function userRegistraion($name, $email, $pass,$phone)
+		public function userRegistraion($name, $email, $pass1,$phone)
 		{	//echo "Here";
 			$user ='fundbox';
 			$pass='oracle';
@@ -33,7 +33,7 @@
 			// echo " id is ";
 			// echo $id ;
 			$id = $id + 1 ;
-			$sql1 = "INSERT INTO USERINFOS (ID,NAME, EMAIL, PASSWORD, PHONE, TYPE, STATUS) VALUES ($id,'$name','$email','$pass','$phone',4,1)";
+			$sql1 = "INSERT INTO USERINFOS (ID,NAME, EMAIL, PASSWORD, PHONE, TYPE, STATUS) VALUES ($id,'$name','$email','$pass1','$phone',4,1)";
 			$data1 = oci_parse($connection, $sql1);
 			oci_execute($data1);
 	
@@ -70,13 +70,13 @@
 			}
 
 		}
-		public function allUser($email)
+		public function allUser()
 		{
 			$user ='fundbox';
 			$pass='oracle';
 			$db='localhost/XE';
 			$connection = oci_connect($user, $pass, $db);
-			$sql = "SELECT * FROM USERINFOS WHERE EMAIL = '$email'";
+			$sql = "SELECT * FROM USERINFOS WHERE STATUS=1";
 			$data = oci_parse($connection, $sql);
 			oci_execute($data);
 			
@@ -84,8 +84,12 @@
 			// 	//echo htmlentities($res['EMAIL']) . "<br>";
 			// 	$count = $count+1;
 			// 	//echo $count;
+			// $single_user_data = array(oci_fetch_array($data));
+			// echo $single_user_data;
    			
-				return oci_fetch_array($data, OCI_ASSOC);
+				//return oci_fetch_array($data, OCI_ASSOC);
+
+		
 			
 
 		}

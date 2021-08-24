@@ -43,6 +43,31 @@
 			return false;
 			}
 		}
+		public function createEvent($eName, $banner, $eType, $eCatagory, $money, $contact, $details, $venue)
+		{	//echo "Here";
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+
+			$sql = "SELECT MAX(ID) FROM EVENTS";
+			$data = oci_parse($connection, $sql);
+			oci_execute($data);
+			$row = oci_fetch_array($data, OCI_ASSOC);
+			$id = $row['MAX(ID)'];
+			// echo " id is ";
+			 echo $id ;
+			$id = $id + 1 ;
+			$sql1 = "INSERT INTO EVENTS (ID,EVENT_NAME, IMAGE , DETAILS , CONTACT, EVENTCATAGORY, EVENTTYPE, VENUE ,TARGETMONEY, STATUS, IS_FEATURE) VALUES ($id,'$eName','$banner','$details','$contact','$eCatagory','$eType','$venue','$money',1,1)";
+			$data1 = oci_parse($connection, $sql1);
+			oci_execute($data1);
+	
+			if($data1){
+				return true;
+			}else{
+			return false;
+			}
+		}
 
 		/**
 		* Email check 

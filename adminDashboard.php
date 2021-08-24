@@ -71,6 +71,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 All Events
                             </a>
+                            <a class="nav-link" href="./createEvent.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Create Event
+                            </a>
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="./allTransaction.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -190,34 +194,48 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>rh@gmail.com</td>
-                                            <td>01521406333</td>
-                                            <td>Organisation</td>
-                                            <td>Active</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>rh@gmail.com</td>
-                                            <td>01521406333</td>
-                                            <td>Organisation</td>
-                                            <td>Active</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>rh@gmail.com</td>
-                                            <td>01521406333</td>
-                                            <td>Organisation</td>
-                                            <td>Active</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>rh@gmail.com</td>
-                                            <td>01521406333</td>
-                                            <td>Organisation</td>
-                                            <td>Active</td>
-                                        </tr>
+                                    <tr>
+                                        <?php  
+                                        $user ='fundbox';
+                                        $pass='oracle';
+                                        $db='localhost/XE';
+                                        $connection = oci_connect($user, $pass, $db);
+                                        $sql = "SELECT * FROM USERINFOS";
+                                        $data = oci_parse($connection, $sql);
+                                        oci_execute($data);
+                                         while (($row = oci_fetch_array($data, OCI_ASSOC)) != false) {
+                                             if($row["STATUS"] == 1){
+                                                 $status = "Active";
+
+                                             }else{
+                                                $status = "Inactive";
+
+                                             }
+                                             if($row["TYPE"] == 1){
+                                                 $type = "Admin";
+
+                                             }
+                                             else if($row["TYPE"] == 2){
+                                                $type = "Organisation";
+                                             }
+                                             else if($row["TYPE"] == 3){
+                                                $type = "Sponsor";
+                                             }
+                                             else{
+                                                $type = "Normal User";
+
+                                             }
+                                             echo "
+                                                <tr>
+                                                    <td>" . $row["NAME"]. "</td>
+                                                    <td>" . $row["EMAIL"]. "</td>
+                                                    <td>". $row["PHONE"]. "</td>
+                                                    <td>". $type. "</td>
+                                                    <td>". $status. "</td>
+                                                    </tr>";
+                                         }
+                                        ?>
+                                        </tr>  
                                         
                                     </tbody>
                                 </table>

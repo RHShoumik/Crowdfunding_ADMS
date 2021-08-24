@@ -18,6 +18,38 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+
+    <?php
+		 if( isset($_POST['create_event']) ){
+
+			// Get value 
+			$eName = $_POST['eName'];
+			$banner = $_POST['banner'];
+			$eType = $_POST['eType'];
+			$eCatagory = $_POST['eCatagory'];
+			$money = $_POST['money'];
+			$contact = $_POST['contact'];
+			$details = $_POST['details'];
+			$venue = $_POST['venue'];
+
+
+            $mess1 = "Test";
+
+			if( empty($eName) || empty($banner))
+		 	{
+				$mess1 = "<p style='color:red;text-align:center; font-size:14px; font-weight:normal;'>All fields are required !</p>";
+             }else {
+				$data = $user -> createEvent($eName, $banner, $eType, $eCatagory, $money, $contact, $details,$venue);
+				if(  $data  == true ){
+				  $mess1 = "<p style='color:green;text-align:center; font-size:14px; font-weight:normal;'> Create successfull </p>";
+				}
+		   }
+  
+  
+  
+		 }
+
+	?>
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Fundbox</a>
@@ -95,65 +127,75 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">All Transactions</h1>
+                        <h1 class="mt-4">Create Event</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
-                        
-                        
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Transaction List
+                                Event
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Sl</th>
-                                            <th>Event Id</th>
-                                            <th>Details</th>
-                                            <th>Payment type</th>
-                                            <th>Amount</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        <?php  
-                                        $count = 1;
-                                        $user ='fundbox';
-                                        $pass='oracle';
-                                        $db='localhost/XE';
-                                        $connection = oci_connect($user, $pass, $db);
-                                        $sql = "SELECT * FROM EVENT_TRANS_LISTS";
-                                        $data = oci_parse($connection, $sql);
-                                        oci_execute($data);
-                                         while (($row = oci_fetch_array($data, OCI_ASSOC)) != false) {
-                                             echo "
-                                                <tr>
-                                                    <td>" . $count. "</td>
-                                                    <td>" . $row["EVENT_ID"]. "</td>
-                                                    <td>" . $row["DETAILS"]. "</td>
-                                                    <td>" . $row["PAYMENTTYPE"]. "</td>
-                                                    <td>" . $row["AMOUNT"]. "</td>
-                                                    </tr>";
-                                                    $count = $count+1;
-                                         }
-                                        
-                                        
-                                        ?>
-                                        </tr>
-                                        <!-- <tr>
-                                            <td>Tiger Nixon</td>
-                                            <td>rh@gmail.com</td>
-                                            <td>01521406333</td>
-                                            <td>Organisation</td>
-                                            <td>Active</td>
-                                        </tr> -->
-                                        
-                                        
-                                    </tbody>
-                                </table>
+                                <?php 
+                                    echo "<h1>" .$mess1 . "</h1>";
+                                ?>
+                                <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                    <?php  
+                                        if( isset($mess1) ){
+                                            echo $mess1;
+                                        }
+                                    ?>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Event Name</label>
+                                            <input type="text" class="form-control" name="eName">
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Banner</label>
+                                            <input type="file" class="form-control" name="banner">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Details</label>
+                                            <input type="text" class="form-control" name="details">
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Contact</label>
+                                            <input type="text" class="form-control" name="contact">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Venue</label>
+                                            <input type="text" class="form-control" name="venue">
+                                        </div>
+                                        <div class="col">
+                                            <label for="exampleInputEmail1" class="form-label">Target Money</label>
+                                            <input type="text" class="form-control" name="money">
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <label for="validationCustom04" class="form-label">Event Catagoty</label>
+                                            <select class="form-select" name="eCatagory" id="validationCustom04" required>
+                                            <option>Blood Donation</option>
+                                            <option>Volunteer</option>
+                                            <option>Money Collection</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <label for="validationCustom05" class="form-label">Event Type</label>
+                                            <select class="form-select" name="eType" id="validationCustom05" required>
+                                            <option>Donation</option>
+                                            <option>Collection</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <!-- <button type="submit" class="btn btn-primary mt-4">Submit</button> -->
+                                    <input name="create_event" class="btn btn-primary mt-4 name="create_event" type="submit"  value="Create Event">
+                                </form>
                             </div>
                         </div>
                     </div>

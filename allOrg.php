@@ -71,6 +71,10 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 All Events
                             </a>
+                            <a class="nav-link" href="./createEvent.php">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                Create Event
+                            </a>
                             <div class="sb-sidenav-menu-heading">Addons</div>
                             <a class="nav-link" href="./allTransaction.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
@@ -121,17 +125,7 @@
                                         $sql = "SELECT * FROM USERINFOS WHERE TYPE=2";
                                         $data = oci_parse($connection, $sql);
                                         oci_execute($data);
-                                        
-                                        // while (($res = oci_fetch_array($data, OCI_ASSOC)) != false) {
-                                        // 	//echo htmlentities($res['EMAIL']) . "<br>";
-                                        // 	$count = $count+1;
-                                        // 	//echo $count;
-                                        // $single_user_data = array(oci_fetch_array($data));
-                                        // echo $single_user_data;
-                                           
-                                         //return oci_fetch_array($data, OCI_ASSOC);
                                          while (($row = oci_fetch_array($data, OCI_ASSOC)) != false) {
-                                             //echo "<td> $row[NAME] </td>";
                                              if($row["STATUS"] == 1){
                                                  $status = "Active";
 

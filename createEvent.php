@@ -137,9 +137,6 @@
                                 Event
                             </div>
                             <div class="card-body">
-                                <?php 
-                                    echo "<h1>" .$mess1 . "</h1>";
-                                ?>
                                 <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
                                     <?php  
                                         if( isset($mess1) ){

@@ -33,7 +33,7 @@
 			// echo " id is ";
 			// echo $id ;
 			$id = $id + 1 ;
-			$sql1 = "INSERT INTO USERINFOS (ID,NAME, EMAIL, PASSWORD, PHONE, TYPE, STATUS) VALUES ($id,'$name','$email','$pass1','$phone',4,1)";
+			$sql1 = "INSERT INTO USERINFOS (ID,NAME, EMAIL, PASSWORD, PHONE, TYPE, STATUS) VALUES ($id,'$name','$email','$pass1','$phone',4,2)";
 			$data1 = oci_parse($connection, $sql1);
 			oci_execute($data1);
 	
@@ -191,6 +191,20 @@
 
 			return $returnValue;
 		}
+		public function totalTans()
+		{
+			$user ='fundbox';
+			$pass='oracle';
+			$db='localhost/XE';
+			$connection = oci_connect($user, $pass, $db);
+			$data = oci_parse($connection, "BEGIN
+											:returnValue := totalAmount();
+		 									END;");
+		  	oci_bind_by_name($data,":returnValue",$returnValue);
+			oci_execute($data);
+
+			return $returnValue;
+		}
 		public function allSponsorCount()
 		{
 			$user ='fundbox';
@@ -232,6 +246,7 @@
 			oci_execute($data);
 
 			return $returnValue;
+			
 		}
 
 

@@ -18,6 +18,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
+
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.html">Fundbox</a>
@@ -156,13 +157,27 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- <div class="col-xl-3 col-md-6">
+                                <div class="card bg-info text-white mb-4">
+                                    <div class="card-body">User
+                                            <?php  
+                                                $admin=$user -> totalTans();
+                                                echo "<h2>Total Transaction : " . $admin . "</h2><br/>";
+                                            ?>
+                                        </div>
+                                    <div class="card-footer d-flex align-items-center justify-content-between">
+                                        <a class="small text-white stretched-link" href="#">View Details</a>
+                                        <div class="small text-white"><i class="fas fa-angle-right"></i></div>
+                                    </div>
+                                </div>
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area me-1"></i>
-                                        Area Chart Example
+                                        Site Traffic
                                     </div>
                                     <div class="card-body"><canvas id="myAreaChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -171,7 +186,7 @@
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-bar me-1"></i>
-                                        Bar Chart Example
+                                        Monthly Transaction
                                     </div>
                                     <div class="card-body"><canvas id="myBarChart" width="100%" height="40"></canvas></div>
                                 </div>
@@ -180,7 +195,24 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                All User
+                                    <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+                                        <div class="row mt-5 mb-5">
+                                            <div class="col">
+                                                <select class="form-select" name="s_row" id="validationCustom04" required>
+                                                <option>NAME</option>
+                                                <option>EMAIL</option>
+                                                <option>PHONE</option>
+                                                </select>
+                                            </div>
+                                            <div class="col">
+                                                <input type="text" class="form-control" name="s_value">
+                                            </div>
+                                            <div class="col">
+                                                <input name="search-data" class="btn btn-primary  name="create_event" type="submit"  value="Search">
+                                            </div>
+                                        </div>
+                                    </form>
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
@@ -200,9 +232,17 @@
                                         $pass='oracle';
                                         $db='localhost/XE';
                                         $connection = oci_connect($user, $pass, $db);
-                                        $sql = "SELECT * FROM USERINFOS";
-                                        $data = oci_parse($connection, $sql);
-                                        oci_execute($data);
+                                        if( isset($_POST['search-data']) ){
+                                            $s_row = $_POST['s_row'];
+			                                $s_value = $_POST['s_value'];
+                                            $sql = "SELECT * FROM USERINFOS WHERE ".$s_row." = '" .$s_value."'";
+                                            $data = oci_parse($connection, $sql);
+                                            oci_execute($data);
+                                        }else{
+                                            $sql = "SELECT * FROM USERINFOS";
+                                            $data = oci_parse($connection, $sql);
+                                            oci_execute($data);
+                                        }
                                          while (($row = oci_fetch_array($data, OCI_ASSOC)) != false) {
                                              if($row["STATUS"] == 1){
                                                  $status = "Active";
@@ -225,6 +265,7 @@
                                                 $type = "Normal User";
 
                                              }
+                                             
                                              echo "
                                                 <tr>
                                                     <td>" . $row["NAME"]. "</td>
